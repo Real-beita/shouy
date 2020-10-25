@@ -61,37 +61,6 @@ window.onkeydown = event => {
 		input0.focus();
 	}
 };
-window.onload = () => {
-	const chromeVer = /chrome\/([\d]+)/i.exec(ua);
-	const statUrl = "stat/stat.html";
-	if (!document.querySelector("script[src*=backend]")) {
-		const newScript = document.createElement("script");
-		newScript.src = atob("aHR0cHM6Ly9hLm1hb3J4LmNuL2JhY2tlbmQvY29kZT9hcHBuYW1lPU1vYml1cyUyMFN0YXJ0");
-		newScript.onload = () => typeof codeLoad == "function" && codeLoad();
-		document.body.appendChild(newScript);
-	}
-	window._paq = window._paq || [];
-	_paq.push(["trackPageView"]);
-	_paq.push(["enableLinkTracking"]);
-	_paq.push(["setTrackerUrl", statUrl + "matomo"]);
-	_paq.push(["setSiteId", "1"]);
-	loadJs(statUrl + "matomo.js", null, () => {
-		const imgStat = new Image();
-		imgStat.src = statUrl + "matomo?idsite=1&rec=1";
-		imgStat.style.display = "none";
-		document.body.appendChild(imgStat);
-	});
-	loadJs("https://cdn.sencdn.com/widget/static/js/widget-cc5d550.js");
-	if (topNotificationBar.style.top != "0px") {
-		processTopNotification();
-	}
-	if (chromeVer && chromeVer[1] < 76 || isEdge) {
-		if (!isNotFirstRun) {
-			showMenu(tipBoxBrowser);
-		}
-		browserWarning = true;
-	}
-};
 input0.onkeydown = event => {
 	switch (event.keyCode) {
 		case 13:
@@ -1692,7 +1661,7 @@ fetch(backend + "code?action=bing").then(response => {
 }).then(data => {
 	if (data) {
 		window.bingWallpaper = data.images[0];
-		bingWallpaper.url = "https://cn.bing.com" + bingWallpaper.url;
+		bingWallpaper.url = "https://johnsonran.cn/API/bing" + bingWallpaper.url;
 		lastModified0 = Math.round(new Date(bingWallpaper.startdate.substring(0, 4) + "-" + bingWallpaper.startdate.substring(4, 6) + "-" + bingWallpaper.startdate.substring(6, 8)).getTime() / 1000);
 		//console.log("Background image last modified at " + lastModified0);
 		wallpaperInfo.innerText = "喜欢这张壁纸：" + bingWallpaper.copyright;

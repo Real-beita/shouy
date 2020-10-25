@@ -165,7 +165,7 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-	background-image:url("https://api.dujin.org/bing/1920.php");
+	background-image:url("https://johnsonran.cn/API/bing");
 	transition: opacity 1s, transform 0.25s, filter 0.25s;
 }
 
