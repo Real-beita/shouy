@@ -1064,7 +1064,7 @@ footer {
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
-	background-image: url("assets/images/Lime_Logo_with_Title_Cropped.png");
+	background-image: url("../assets/images/favicon.ico");
 }
 
 .pTitle {
