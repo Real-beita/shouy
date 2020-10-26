@@ -323,7 +323,6 @@ title.onclick = event => {
 			bgbox.style.filter = "blur(10px)";
 		}
 		navbox.style.display = "block";
-		btnUser.style.display = "block";
 		btnSettings.style.display = "block";
 		if (browserWarning === true) {
 			btnWarn.style.display = "block";
@@ -361,7 +360,6 @@ navbox.onclick = event => {
 			bgbox.style.filter = "";
 		}
 		navbox.style.opacity = "0";
-		btnUser.style.opacity = "0";
 		btnSettings.style.opacity = "0";
 		btnLike.style.opacity = "0";
 		if (browserWarning === true) {
@@ -369,14 +367,12 @@ navbox.onclick = event => {
 		}
 		setTimeout(() => {
 			navbox.style.display = "none";
-			btnUser.style.display = "none";
 			btnSettings.style.display = "none";
 			btnLike.style.display = "none";
 			if (browserWarning === true) {
 				btnWarn.style.display = "none";
 			}
 			navbox.style.opacity = "";
-			btnUser.style.opacity = "";
 			btnSettings.style.opacity = "";
 			btnLike.style.opacity = "";
 			if (browserWarning === true) {
@@ -796,26 +792,6 @@ btnWarn.onmouseenter = () => {
 tipBoxBrowser.onmouseleave = () => {
 	if (tipBoxBrowser.style.opacity === "1") {
 		hideMenu(tipBoxBrowser);
-	}
-}
-btnUser.onclick = () => {
-	if (isLoggedIn()) {
-		if (menuUser.style.opacity === "1") {
-			hideMenu(menuUser);
-		} else {
-			showMenu(menuUser);
-		}
-	}
-}
-btnUser.onmouseenter = () => {
-	if (!login.username) {
-		showMenu(tipBoxLogin);
-		offlineMark.style.opacity = 0;
-	}
-}
-btnUser.onmouseout = () => {
-	if (tipBoxLogin.style.opacity === "1") {
-		hideMenu(tipBoxLogin);
 	}
 }
 
