@@ -100,41 +100,6 @@
                                 class="nav_links"><i class="iconfont iconNavLinks">&#xe6b9;</i>网盘</a></span>
                     </div>
                 </div>
-                <div class="navboxes" id="navbox2">
-                    <div class="shouldNotFade" id="noteListWrap">
-                        <div class="shouldNotFade" id="noteList">
-                            <div class="noteItem shouldNotFade" @click="newNote()">
-                                <i class="iconfont shouldNotFade" id="iconAdd">&#xe620;</i><span
-                                    class="noteTitle shouldNotFade" id="noteTitle0">新便笺</span>
-                            </div>
-                            <div v-for="(item,index) in list.text"
-                                v-bind:class="{noteItem:1,shouldNotFade:1,current:current===index+1}"
-                                @click="open(index+1)">
-                                <span class="noteTitle shouldNotFade">{{item.text}}</span><br>
-                                <span class="noteTime shouldNotFade">{{item.time}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <textarea class="shouldNotFade" id="textNote" placeholder="在此键入以创建新的便笺"></textarea>
-                    <div class="shouldNotFade" id="noteToolBar">
-                        <div class="toolBarBtns" id="btnDelNote" title="删除便笺"><i
-                                class="iconfont shouldNotFade">&#xe614;</i></div>
-                        <div class="toolBarBtns" id="btnPinNote" title="固定便笺到主屏幕"><i class="iconfont shouldNotFade"
-                                id="iconPin">&#xe849;</i></div>
-                        <div class="toolBarBtns" id="btnSaveNote" title="保存便笺 (Ctrl+S)"><i
-                                class="iconfont shouldNotFade" id="iconSave">&#xe996;</i></div>
-                        <div class="toolBarTip" id="tipNoteCloud"><span
-                                id="txtNoteCloudStatus">便笺云同步由热铁盒工具箱提供技术支持</span><i class="iconfont"
-                                id="iconNoteCloud">&#xeabf;</i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="navboxSwitch">
-
-                <span class="nbSwitch shouldNotFade" id="nbSwitch1"><span class="shouldNotFade current"
-                        id="nbSwitch1_0"></span></span>
-                <span class="nbSwitch shouldNotFade" id="nbSwitch2"><span class="shouldNotFade"
-                        id="nbSwitch2_0"></span></span>
             </div>
             <div id="navboxCustom">
             </div>
@@ -170,7 +135,7 @@
         <!---->
         <div id="menuSettings">
             <div class="userMenuItem" id="setMenuGeneral" onclick="showPop(popGeneralSettings)">常规设置</div>
-            <div class="userMenuItem" id="setMenuBgPref" onclick="showPop(popBg)">背景图像偏好</div>
+            <div class="userMenuItem" id="setMenuBgPref" onclick="showPop(popBg)">设置背景</div>
             <div class="userMenuItem" id="setMenuDonate" onclick="showPop(popDonate)">捐助我</div>
             <div class="userMenuItem" id="setMenuFeedback" onclick="showPop(popFeedback)">反馈</div>
         </div>
@@ -215,12 +180,6 @@
                                 <div class="slider" onclick="setAutoFocus()"></div>
                             </label>
                         </div>
-                        <div class="setOptBox">
-                            <span class="setOptCaption">将便笺页作为默认的二级页面</span>
-                            <label class="switch"><input type="checkbox" id="chkNoteAsDefault">
-                                <div class="slider" onclick="setNoteAsDefault()"></div>
-                            </label>
-                        </div>
                     </div>
                     <div class="titleBold setGroupCaption">视效和性能</div>
                     <div class="setGroup">
@@ -236,7 +195,7 @@
                             <label class="switch"><input type="checkbox" id="chkNavLinksBlurEf">
                                 <div class="slider" onclick="setNavLinksBlurEf()"></div>
                             </label>
-                            <span class="setOptComment">关闭此项可提升性能。</span>
+                            <span class="setOptComment">关闭此项可提升一定性能。</span>
                         </div>
                     </div>
                     <div class="titleBold setGroupCaption">通用</div>

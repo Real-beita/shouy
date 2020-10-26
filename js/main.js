@@ -16,7 +16,6 @@ const isAndroid = ua.indexOf("android") != -1;
 const isMobile = isIphone || isAndroid;
 const isEdge = ua.indexOf("edge/") != -1;
 const isSafari = ua.indexOf("safari/") != -1 && ua.indexOf("chrome/") == -1;
-const originalStatus = txtNoteCloudStatus.innerText;
 const ypoctonod = [window[atob("bG9jYXRpb24=")], "aHJlZg=="];
 const localVersion = localStorage.getItem("localVersion");
 const isNotFirstRun = !!localVersion;
@@ -39,7 +38,6 @@ let cusWallpaper = localStorage.getItem("cusWallpaper");
 let autoClrSearchBar = localStorage.getItem("autoClrSearchBar") != "off";
 let openInNew = localStorage.getItem("openInNew") != "off";
 let autoFocus = localStorage.getItem("autoFocus") != "off";
-let noteAsDefault = localStorage.getItem("noteAsDefault") == "on";
 let hitokoto = localStorage.getItem("hitokoto") != "off";
 let reduceMotion = (isEdge || isSafari) ? true : localStorage.getItem("reduceMotion") == "on";
 let navLinksBlurEf = localStorage.getItem("navLinksBlurEf") == "on";
@@ -121,10 +119,6 @@ input0.oninput = () => {
 		hideKeyword();
 	}
 };
-inputCustomUrl.oncontextmenu = inputCustomTitle.oncontextmenu = textNote.oncontextmenu = input0.oncontextmenu = event => {
-	theTextArea = event.target;
-	showSearchMenu(event);
-}
 
 function Input_Blur() {
 	if (autoClrSearchBar === true) {
@@ -411,209 +405,6 @@ function encodeData(data) {
 	}
 	return array.join("&");
 }
-textNote.onclick = () => isLoggedIn();
-textNote.oninput = () => {
-	if (window.login && login.username) {
-		const time = currentTime();
-		const value = textNote.value;
-		if (noteList.list.text.length <= 1) {
-			if (value) {
-				if (innerWidth <= 600) {
-					textNote.style.left = "calc(5% + 150px)";
-					textNote.style.width = "calc(90% - 150px)";
-					noteListWrap.style.left = "5%";
-				} else {
-					textNote.style.left = "200px";
-					textNote.style.width = "460px";
-					noteListWrap.style.left = "0px";
-				}
-				noteToolBar.style.display = "block";
-			} else {
-				if (noteList.currentIsNew) {
-					noteList.current = 0;
-					noteList.list.text.splice(0, 1);
-				} else {
-					noteList.delete();
-				}
-				if (innerWidth <= 600) {
-					textNote.style.left = "5%";
-					textNote.style.width = "90%";
-				} else {
-					textNote.style.left = "0px";
-					textNote.style.width = "660px";
-				}
-				noteListWrap.style.left = "-200px";
-				noteToolBar.style.display = "none";
-			}
-		}
-		if (value && !noteList.current) {
-			noteList.list.text.push({
-				created: Date.now(),
-				encrypt: false,
-				text: value,
-				time: currentTime(),
-				title: ""
-			});
-			noteList.current = noteList.list.text.length;
-		}
-		if (noteList.isOpened()) {
-			noteList.list.text[noteList.current - 1].text = value;
-			noteList.list.text[noteList.current - 1].time = time;
-		}
-		noteList.changed = true;
-		txtNoteCloudStatus.innerText = "未保存";
-		if (noteList.pinned.length > 0) {
-			for (let i = 0; i < noteList.pinned.length; i++) {
-				if (noteList.pinned[i] == noteList.list.text[noteList.current - 1].created) {
-					if (value) {
-						if (document.getElementById("pinnedNoteContent" + noteList.pinned[i])) {
-							document.getElementById("pinnedNoteContent" + noteList.pinned[i]).innerText = value;
-						}
-						if (document.getElementById("pinnedNoteTime" + noteList.pinned[i])) {
-							document.getElementById("pinnedNoteTime" + noteList.pinned[i]).innerText = time;
-						}
-					} else {
-						unpinNote(i);
-					}
-				}
-			}
-		}
-	}
-}
-textNote.onkeydown = event => {
-	if ((event.ctrlKey || event.metaKey) && event.keyCode == 83) {
-		noteList.save();
-	}
-}
-btnDelNote.onclick = () => noteList.isOpened() && confirm("删除这条便笺？") && noteList.delete();
-btnSaveNote.onclick = () => noteList.save();
-
-function createPinnedNote(i, content, time) {
-	const newPinnedNote = document.createElement("div");
-	const newPinnedNoteContent = document.createElement("div");
-	const newPinnedNoteTime = document.createElement("div");
-	const newBtnCloseS = document.createElement("span");
-	newPinnedNote.className = "pinnedNote";
-	newPinnedNote.id = "pinnedNote" + i;
-	newPinnedNote.onclick = () => pinnedNoteClick(i);
-	newPinnedNote.onmousemove = pinnedNoteHover;
-	newPinnedNote.onmouseout = pinnedNoteHover2;
-	newPinnedNoteContent.className = "pinnedNoteContent";
-	newPinnedNoteContent.id = "pinnedNoteContent" + i;
-	newPinnedNoteContent.innerText = content;
-	newPinnedNoteTime.className = "pinnedNoteTime";
-	newPinnedNoteTime.id = "pinnedNoteTime" + i;
-	newPinnedNoteTime.innerText = time;
-	newBtnCloseS.className = "btnCloseS";
-	newBtnCloseS.id = "btnUnpin" + i;
-	newBtnCloseS.onclick = event => {
-		event.stopPropagation();
-		unpinNote(i);
-	};
-	newPinnedNote.appendChild(newPinnedNoteContent);
-	newPinnedNote.appendChild(newPinnedNoteTime);
-	newPinnedNote.appendChild(newBtnCloseS);
-	pinnedBox.appendChild(newPinnedNote);
-}
-btnPinNote.onclick = () => {
-	if (noteList.isOpened()) {
-		if (noteList.pinned.length < 3) {
-			const noteIndex = noteList.list.text[noteList.current - 1].created;
-			noteList.currentIsNew && noteList.save();
-			if (noteList.pinned.indexOf(noteIndex) == -1) {
-				noteList.pinned.push(noteIndex);
-				createPinnedNote(noteIndex, textNote.value, noteList.list.text[noteList.current - 1].time);
-				showPinnedNote();
-			}
-		} else {
-			alert("最多只能固定三条便笺喔");
-		}
-	}
-}
-
-function showPinnedNote() {
-	pinnedBox.style.display = "block";
-	const pinnedNotes = document.getElementsByClassName("pinnedNote");
-	for (let i = 0; i < pinnedNotes.length; i++) {
-		setTimeout(() => {
-			pinnedNotes[i].style.opacity = "1";
-			pinnedNotes[i].style.transform = "scale(1.05)";
-		}, 100 + 100 * i);
-		setTimeout(() => {
-			pinnedNotes[i].style.transform = "scale(1)";
-		}, 350 + 100 * i);
-	}
-}
-
-function unpinNote(i) {
-	const thePinnedNote = document.getElementById("pinnedNote" + i);
-	noteList.pinned.splice(noteList.pinned.indexOf(i), 1);
-	if (thePinnedNote) {
-		thePinnedNote.style.transform = "scale(1.05)";
-		setTimeout(() => {
-			thePinnedNote.style.transform = "scale(0.5)";
-			thePinnedNote.style.opacity = "0";
-		}, 250);
-		setTimeout(() => thePinnedNote.remove(), 500);
-		if (noteList.pinned.length < 1) {
-			setTimeout(() => pinnedBox.style.display = "none", 500);
-		}
-	}
-}
-
-function pinnedNoteClick(i) {
-	noteList.open(noteList.getIndex(i) + 1);
-	if (navbox.style.display != "block") {
-		title.onclick();
-	}
-	nbSwitch2.onclick();
-}
-
-function navboxScale0() {
-	//navboxCus.style.MozTransform="scale(0.9)";
-	//navboxCus.style.WebkitTransform="scale(0.9)";
-	navbox1.style.transform = "scale(0.9)";
-	navbox2.style.transform = "scale(0.9)";
-}
-
-function navboxScale1() {
-	//navboxCus.style.MozTransform="scale(1)";
-	//navboxCus.style.WebkitTransform="scale(1)";
-	navbox1.style.transform = "scale(1)";
-	navbox2.style.transform = "scale(1)";
-}
-nbSwitch1.onclick = () => {
-	if (navbox1.style.left != "0px") {
-		//nbSwitch0_0.classList.remove("current");
-		nbSwitch2_0.classList.remove("current");
-		nbSwitch1_0.classList.add("current");
-		navboxScale0();
-		setTimeout(() => {
-			//navboxCus.style.left="-100%";
-			navbox1.style.left = "0px";
-			navbox2.style.left = "100%";
-		}, 250);
-		setTimeout(() => navboxScale1(), 500);
-		window.cooldownScroll = true;
-		setTimeout(() => window.cooldownScroll = false, 500);
-	}
-}
-nbSwitch2.onclick = () => {
-	if (navbox2.style.left != "0px") {
-		//nbSwitch0_0.classList.remove("current");
-		nbSwitch1_0.classList.remove("current");
-		nbSwitch2_0.classList.add("current");
-		navboxScale0();
-		setTimeout(() => {
-			//navboxCus.style.left="-100%";
-			navbox1.style.left = "-100%";
-			navbox2.style.left = "0px";
-		}, 250);
-		setTimeout(() => navboxScale1(), 500);
-		window.cooldownScroll = true;
-		setTimeout(() => window.cooldownScroll = false, 500);
-	}
-}
 
 function showAbout() {
 	pVersion.innerText = version;
@@ -849,48 +640,6 @@ function currentTime() {
 	return year + "年" + month + "月" + day + "日 " + hours + ":" + minutes;
 }
 setInterval(currentTime, 1000);
-
-function pinnedNoteHover(event) {
-	if (topNotificationBar.style.top != "0px") {
-		const m_clientX = event.clientX - this.offsetLeft;
-		const m_clientY = event.clientY - this.offsetTop;
-		const pinnedNoteW = window.getComputedStyle(this).width.replace("px", "");
-		const pinnedNoteH = window.getComputedStyle(this).height.replace("px", "");
-		if (m_clientX < pinnedNoteW * 0.3 && m_clientY < pinnedNoteH * 0.3) {
-			this.style.transform = "rotateX(10deg) rotateY(-5deg)";
-		}
-		if (m_clientX > pinnedNoteW * 0.3 && m_clientX < pinnedNoteW * 0.7 && m_clientY < pinnedNoteH * 0.3) {
-			this.style.transform = "rotateX(10deg)";
-		}
-		if (m_clientX > pinnedNoteW * 0.7 && m_clientY < pinnedNoteH * 0.3) {
-			this.style.transform = "rotateX(10deg) rotateY(5deg)";
-		}
-		if (m_clientX < pinnedNoteW * 0.3 && m_clientY > pinnedNoteH * 0.3 && m_clientY < pinnedNoteH * 0.7) {
-			this.style.transform = "rotateY(-5deg)";
-		}
-		if (m_clientX > pinnedNoteW * 0.3 && m_clientX < pinnedNoteW * 0.7 && m_clientY > pinnedNoteH * 0.3 && m_clientY < pinnedNoteH * 0.7) {
-			this.style.transform = "none";
-		}
-		if (m_clientX > pinnedNoteW * 0.7 && m_clientY > pinnedNoteH * 0.3 && m_clientY < pinnedNoteH * 0.7) {
-			this.style.transform = "rotateY(5deg)";
-		}
-		if (m_clientX < pinnedNoteW * 0.3 && m_clientY > pinnedNoteH * 0.7) {
-			this.style.transform = "rotateX(-10deg) rotateY(-5deg)";
-		}
-		if (m_clientX > pinnedNoteW * 0.3 && m_clientX < pinnedNoteW * 0.7 && m_clientY > pinnedNoteH * 0.7) {
-			this.style.transform = "rotateX(-10deg)";
-		}
-		if (m_clientX > pinnedNoteW * 0.7 && m_clientY > pinnedNoteH * 0.7) {
-			this.style.transform = "rotateX(-10deg) rotateY(5deg)";
-		}
-	}
-	document.getElementById("btnUnpin" + this.id.replace(/[^\d]/g, "") * 1).style.opacity = "1";
-}
-
-function pinnedNoteHover2() {
-	this.style.transform = "none";
-	document.getElementById("btnUnpin" + this.id.replace(/[^\d]/g, "") * 1).style.opacity = "0";
-}
 
 function cusNavClick(event, obj) {
 	if (currentAddingNav != obj || frmSetCustomNav.style.opacity === "0") {
@@ -1214,19 +963,6 @@ function showGreeting(username, otherText) {
 	}
 }
 
-function navboxScroll(e) {
-	if (!window.cooldownScroll) {
-		if (e.target.className.indexOf("note") == -1 && e.target.id != "textNote" && e.target.id != "iconAdd") {
-			if (e.deltaX < 0 || e.deltaY < 0) {
-				//if (navbox1.style.left === "0px" || navbox1.style.left == 0) {
-				nbSwitch1.onclick();
-			} else {
-				nbSwitch2.onclick();
-			}
-		}
-	}
-}
-
 function setAutoClrSearchBar() {
 	if (chkAutoClrSearchBar.checked == true) {
 		autoClrSearchBar = false;
@@ -1254,18 +990,6 @@ function setAutoFocus() {
 	} else {
 		autoFocus = true;
 		localStorage.setItem("autoFocus", "on");
-	}
-}
-
-function setNoteAsDefault() {
-	if (chkNoteAsDefault.checked == true) {
-		noteAsDefault = false;
-		localStorage.setItem("noteAsDefault", "off");
-		nbSwitch1.onclick();
-	} else {
-		noteAsDefault = true;
-		localStorage.setItem("noteAsDefault", "on");
-		nbSwitch2.onclick();
 	}
 }
 
@@ -1460,12 +1184,6 @@ searchMenuPaste.onclick = event => {
 		tipBoxCopyPaste.style.top = event.clientY + 3 + "px";
 		showMenu(tipBoxCopyPaste);
 	}
-	//if (theTextArea.id === "textNote") {
-	//	textNote.oninput();
-	//}
-	//if (theTextArea.id === "input0") {
-	//	input0.oninput();
-	//}
 	theTextArea.focus();
 }
 
@@ -1589,7 +1307,7 @@ if(snowEf==="on"){
 chkAutoClrSearchBar.checked = autoClrSearchBar;
 chkOpenInNew.checked = openInNew;
 chkAutoFocus.checked = autoFocus;
-chkNoteAsDefault.checked = noteAsDefault;
+
 chkHitokoto.checked = hitokoto;
 chkReduceMotion.checked = reduceMotion;
 chkNavLinksBlurEf.checked = navLinksBlurEf;
@@ -1598,9 +1316,6 @@ if (autoFocus === false) {
 	Input_Blur();
 	searchOptBox.style.display = "none";
 	input0.blur();
-}
-if (noteAsDefault === true) {
-	nbSwitch2.onclick();
 }
 if (hitokoto === false) {
 	quotebox.style.display = "none";
@@ -1611,184 +1326,3 @@ if (navLinksBlurEf === true) {
 if (autoDarkMode) {
 	loadCss("styles/dark.css");
 }
-Waves.init();
-window.noteList = new Vue({
-	el: "#noteList",
-	data: {
-		changed: false,
-		current: 0,
-		currentIsNew: true,
-		list: {
-			text: [],
-			time: Date.now()
-		},
-		pinned: JSON.parse(localStorage.getItem("pinnedNoteNum")) || []
-	},
-	watch: {
-		pinned: function () {
-			localStorage.setItem("pinnedNoteNum", JSON.stringify(this.pinned));
-			if (this.pinned.length) {
-				pinnedBox.style.display = "block";
-			} else {
-				setTimeout(() => pinnedBox.style.display = "none", 500);
-			}
-		}
-	},
-	methods: {
-		delete: function () {
-			const item = this.list.text[this.current - 1];
-			textNote.value = "";
-			if (item) {
-				this.list.text.splice(this.current - 1, 1);
-				this.submit(JSON.stringify({
-					created: item.created,
-					delete: true
-				}), item.created || this.current);
-				if (this.pinned && this.pinned.indexOf(item.created) != -1) {
-					unpinNote(item.created);
-				}
-				this.current = 0;
-				this.currentIsNew = true;
-			}
-			if (!this.list.text.length) {
-				if (innerWidth <= 600) {
-					textNote.style.left = "5%";
-					textNote.style.width = "90%";
-				} else {
-					textNote.style.left = "0px";
-					textNote.style.width = "660px";
-				}
-				noteListWrap.style.left = "-200px";
-			}
-			noteToolBar.style.display = "none";
-		},
-		getIndex: function (i) {
-			let noteIndex = null;
-			for (let j = 0; j < this.list.text.length; j++) {
-				if (this.list.text[j].created == i) {
-					noteIndex = j;
-				}
-			}
-			return noteIndex
-		},
-		isOpened: function () {
-			return window.login && login.username && this.list && this.list.text && this.list.text[this.current - 1];
-		},
-		load: function () {
-			fetch("https://api.rthe.cn/text/get?" + encodeData({
-				token: login.token,
-				username: login.username
-			})).then(response => {
-				if (response.ok) {
-					return response.json();
-				} else if (response.status == 404) {
-					this.submit();
-				}
-			}).then(data => {
-				const maximumNoteNumber = localStorage.getItem("maximumNoteNumber");
-				const newPinned = [];
-				if (data) {
-					this.list = data;
-				}
-				if (maximumNoteNumber) {
-					for (let i = 1; i < Number(maximumNoteNumber) + 1; i++) {
-						const currentNoteTitle = localStorage.getItem("note" + i);
-						if (currentNoteTitle) {
-							const time = localStorage.getItem("noteTime" + i);
-							this.list.text.push({
-								created: time ? new Date(time.replace(/年|月/g, "-").replace("日", "")).getTime() : null,
-								encrypt: false,
-								text: currentNoteTitle,
-								time: time,
-								title: ""
-							});
-						}
-						localStorage.removeItem("note" + i);
-						localStorage.removeItem("noteTime" + i);
-					}
-					localStorage.removeItem("maximumNoteNumber");
-					this.submit();
-				}
-				if (this.list.text.length > 0) {
-					if (innerWidth <= 600) {
-						textNote.style.left = "calc(5% + 150px)";
-						textNote.style.width = "calc(90% - 150px)";
-						noteListWrap.style.left = "5%";
-					} else {
-						textNote.style.left = "200px";
-						textNote.style.width = "460px";
-						noteListWrap.style.left = "0px";
-					}
-					//noteToolBar.style.display = "block";
-				}
-				for (let i = 0; i < this.pinned.length; i++) {
-					if (this.getIndex(this.pinned[i]) !== null && newPinned.indexOf(this.pinned[i]) == -1) {
-						newPinned.push(this.pinned[i]);
-					}
-				}
-				this.pinned = newPinned;
-				for (let i = 0; i < this.pinned.length; i++) {
-					const noteIndex = this.getIndex(this.pinned[i]);
-					createPinnedNote(this.pinned[i], this.list.text[noteIndex].text, this.list.text[noteIndex].time);
-				}
-				showPinnedNote();
-			});
-		},
-		newNote: function () {
-			this.changed && this.save();
-			this.list.text.push({
-				created: Date.now(),
-				encrypt: false,
-				text: "",
-				time: currentTime(),
-				title: ""
-			});
-			this.current = this.list.text.length;
-			this.currentIsNew = true;
-			textNote.value = "";
-			textNote.focus();
-			noteToolBar.style.display = "block";
-			setTimeout(() => document.getElementById("noteList").scrollTop = document.getElementById("noteList").scrollHeight, 1);
-		},
-		open: function (index) {
-			this.changed && this.save();
-			this.current = index * 1;
-			this.currentIsNew = false;
-			if (this.list.text[this.current - 1]) {
-				textNote.value = this.list.text[this.current - 1].text;
-			}
-			txtNoteCloudStatus.innerText = originalStatus;
-			noteToolBar.style.display = "block";
-			textNote.focus();
-		},
-		save: function () {
-			if (this.isOpened()) {
-				const item = this.list.text[this.current - 1];
-				item.encrypt = false;
-				this.submit(JSON.stringify(item), this.currentIsNew ? -1 : (item.created || this.current));
-				this.changed = false;
-				this.currentIsNew = false;
-			}
-		},
-		submit: function (text, key) {
-			if (login.username) {
-				const postData = {
-					token: login.token,
-					username: login.username,
-					value: JSON.stringify(this.list)
-				};
-				this.list.time = Date.now();
-				if (key) {
-					postData.key = key;
-					postData.time = this.list.time;
-					postData.value = text;
-				}
-				txtNoteCloudStatus.innerText = "正在保存";
-				fetch("https://api.rthe.cn/text/upload", getPostData(postData)).then(response => {
-					txtNoteCloudStatus.innerText = response.ok ? "已保存" : "保存失败";
-					setTimeout(() => txtNoteCloudStatus.innerText = originalStatus, 1000);
-				});
-			}
-		}
-	}
-});
