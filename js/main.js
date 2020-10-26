@@ -1,7 +1,7 @@
 "use strict";
-/* JavaScript written by MaoRX.cn */
-const version = "20w15f1";
-const LSPAge = parseInt((new Date().getTime() - new Date("2017-10-02").getTime()) / 86400000);
+/* JavaScript written by johnsonran.cn */
+const version = "20w10b26";
+const LSPAge = parseInt((new Date().getTime() - new Date("2020-10-25").getTime()) / 86400000);
 const consoleColor = "color: #70C000; ";
 const consoleLineHeight = "line-height: 20px; ";
 const consoleFontFamily = "font-family: 'Microsoft Yahei',PingFangSC-Regular,Helvetica,sans-serif,'等线'; "

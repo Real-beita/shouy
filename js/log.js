@@ -27,5 +27,5 @@ function removeCss(href) {
 		}
 	}
 }
-const LSPAge = parseInt((new Date().getTime() - new Date("2017-10-02").getTime()) / 86400000);
+const LSPAge = parseInt((new Date().getTime() - new Date("2020-10-25").getTime()) / 86400000);
 txtDays.innerText = LSPAge;

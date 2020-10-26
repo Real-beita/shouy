@@ -323,7 +323,7 @@ h1::after {
 	top: 220px;
 	/*270px*/
 	left: 50%;
-	margin-left: -200px;
+	margin-left: -210px;
 	width: 260px;
 	text-align: center;
 	transition: all 0.25s;
