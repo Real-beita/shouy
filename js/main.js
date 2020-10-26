@@ -7,7 +7,7 @@ const consoleLineHeight = "line-height: 20px; ";
 const consoleFontFamily = "font-family: 'Microsoft Yahei',PingFangSC-Regular,Helvetica,sans-serif,'等线'; "
 const consoleStyle1 = consoleColor + consoleFontFamily + consoleLineHeight;
 const consoleStyle2 = consoleFontFamily + consoleLineHeight;
-console.log("\n%cLime Start Page %cVersion " + version + "\n%c欢迎来到旋律起始页！\n%c _       _____  __  __  ______ \n| |     |_   _||  \\/  ||  ____|\n| |       | |  | \\  / || |__   \n| |       | |  | |\\/| ||  __|  \n| |____  _| |_ | |  | || |____ \n|______||_____||_|  |_||______|\n\n%c起始页已上线 %c" + LSPAge + "%c 天\n%c© 2020 Ruoxin Mao. All Rights Reserved.\n", consoleStyle1, consoleStyle2, consoleStyle1, consoleColor, consoleStyle1, consoleStyle2, consoleStyle1, consoleStyle2);
+console.log("\n%cRhythm Start Page %cVersion " + version + "\n%c欢迎来到旋律起始页！\n%c _       _____  __  __  ______ \n| |     |_   _||  \\/  ||  ____|\n| |       | |  | \\  / || |__   \n| |       | |  | |\\/| ||  __|  \n| |____  _| |_ | |  | || |____ \n|______||_____||_|  |_||______|\n\n%c起始页已上线 %c" + LSPAge + "%c 天\n%c© 2020 Rhythm. All Rights Reserved.\n", consoleStyle1, consoleStyle2, consoleStyle1, consoleColor, consoleStyle1, consoleStyle2, consoleStyle1, consoleStyle2);
 const backend = "index.html";
 const ua = navigator.userAgent.toLowerCase();
 const isIpad = ua.indexOf("ipad") != -1;
