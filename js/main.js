@@ -25,12 +25,9 @@ let birthday = "";
 let thePopUp;
 let popUpClosing = false;
 let currentAddingNav;
-let cusNavIconErrCount = 0;
-let cusNavSubmitCount = 0;
 let selectedKeyword = -1;
 let currentDeletingNav;
 let currentEditingNav;
-let cusNavEditingMode = false;
 let theTextArea;
 let currentSearchEngine = localStorage.getItem("searchEngPref");
 let bgPreference = localStorage.getItem("bgPreference");
@@ -381,9 +378,6 @@ navbox.onclick = event => {
 		}, 250);
 		document.getElementById("tp-weather-widget").style.opacity = "0";
 		document.getElementById("tp-weather-widget").style.pointerEvents = "none";
-		if (frmSetCustomNav.style.opacity = "1") {
-			btnCloseFrmCusNav.onclick();
-		}
 	}
 	//alert(obj.id);
 }
@@ -704,155 +698,6 @@ function currentTime() {
 }
 setInterval(currentTime, 1000);
 
-function cusNavClick(event, obj) {
-	if (currentAddingNav != obj || frmSetCustomNav.style.opacity === "0") {
-		if (cusNavEditingMode === true) {
-			captionSetCusNav.innerText = "编辑网站捷径";
-			btnAddCusNav.innerText = "保存";
-		} else {
-			captionSetCusNav.innerText = "添加网站捷径";
-			btnAddCusNav.innerText = "添加";
-		}
-		let left = event.clientX - 150;
-		currentAddingNav = obj;
-		if (left < 0) {
-			left = 10;
-		} else if (left + 300 > innerWidth) {
-			left = innerWidth - 310;
-		}
-		frmSetCustomNav.style.left = left + "px";
-		frmSetCustomNav.style.top = (event.clientY - 180) + "px";
-		frmSetCustomNav.style.display = "block";
-		setTimeout(() => {
-			frmSetCustomNav.style.opacity = "1";
-			frmSetCustomNav.style.transform = "scale(1.05)";
-		}, 50);
-		setTimeout(() => frmSetCustomNav.style.transform = "scale(1)", 300);
-	} else {
-		btnCloseFrmCusNav.onclick();
-		currentAddingNav = "";
-		currentEditingNav = "";
-	}
-}
-btnCloseFrmCusNav.onclick = () => {
-	frmSetCustomNav.style.transform = "scale(1.05)";
-	setTimeout(() => frmSetCustomNav.style.opacity = "0", 150);
-	setTimeout(() => frmSetCustomNav.style.transform = "scale(0.5)", 200);
-	setTimeout(() => frmSetCustomNav.style.display = "none", 400);
-}
-inputCustomUrl.onkeydown = inputCustomTitle.onkeydown = event => {
-	if (event.keyCode == 13) {
-		btnAddCusNav.onclick();
-	}
-}
-btnAddCusNav.onclick = () => {
-	if (isLoggedIn()) {
-		if (inputCustomUrl.value) {
-			window.cusNavIconUrl = inputCustomUrl.value;
-			if (!cusNavIconUrl.startsWith("http")) {
-				cusNavIconUrl = "https://" + cusNavIconUrl;
-			}
-			window.cusNavIconUrlParsed = new URL(cusNavIconUrl);
-			fetch(backend + "code?action=favicon&title=" + encodeURIComponent(inputCustomTitle.value) + "&url=" + encodeURIComponent(cusNavIconUrl)).then(response => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					getDefaultCusNavIcon();
-				}
-			}).then(data => {
-				if (data) {
-					cusNavIconUrl = data.icon;
-					if (data.title && !inputCustomTitle.value) {
-						inputCustomTitle.value = data.title;
-					}
-					if (cusNavEditingMode === true) {
-						document.getElementById(currentEditingNav).innerHTML = `
-						<img class="cusNavIcon shouldNotFade" src="` + cusNavIconUrl + `" onerror="getDefaultCusNavIcon(this)" onload="getDefaultCusNavIcon(this);submitCusNav();">
-						<div class="cusNavTitle shouldNotFade">` + inputCustomTitle.value + `</div>`;
-					} else {
-						currentAddingNav.innerHTML = `
-						<img class="cusNavIcon shouldNotFade" src="` + cusNavIconUrl + `" onerror="getDefaultCusNavIcon(this)" onload="getDefaultCusNavIcon(this);submitCusNav();">
-						<div class="cusNavTitle shouldNotFade">` + inputCustomTitle.value + `</div>`;
-						currentAddingNav.classList.add("added");
-					}
-					btnCloseFrmCusNav.onclick();
-				}
-			});
-		}
-	}
-}
-
-function getDefaultCusNavIcon(obj) {
-	if (!obj.naturalWidth || obj.naturalWidth < 17 && confirm("此网站的图标分辨率过低，要使用自动生成的图标吗？")) {
-		let cusUrlInitial = cusNavIconUrlParsed.host;
-		if (cusUrlInitial.startsWith("www.")) {
-			cusUrlInitial = cusUrlInitial.substring(4);
-		}
-		cusUrlInitial = cusUrlInitial.substring(0, 1).toUpperCase();
-		cusNavIconUrl = "https://iph.href.lu/128x128?bg=333&fg=70BF00&text=" + cusUrlInitial;
-		obj.src = cusNavIconUrl;
-		obj.classList.add("round");
-		cusNavIconErrCount = 0;
-	}
-	//submitCusNav();
-}
-
-function submitCusNav() {
-	cusNavSubmitCount = cusNavSubmitCount + 1;
-	if (cusNavSubmitCount == 1) {
-		let cusNavUrl = inputCustomUrl.value;
-		if (!cusNavUrl.startsWith("http")) {
-			cusNavUrl = encodeURIComponent("http://" + cusNavUrl);
-		} else {
-			cusNavUrl = encodeURIComponent(cusNavUrl);
-		}
-		cusNavUrl = "\"" + cusNavUrl + "\"";
-		cusNavIconUrl = encodeURIComponent(cusNavIconUrl);
-		let cusnavAction;
-		if (cusNavEditingMode === true) {
-			cusnavAction = "editCusNav";
-		} else {
-			cusnavAction = "submitCusNav";
-			currentEditingNav = "";
-		}
-		fetch(backend + "cusNav", getPostData({
-			action: cusnavAction,
-			rthUsername: login.username,
-			cusNavUrl: cusNavUrl,
-			cusNavTitle: inputCustomTitle.value,
-			cusNavIconUrl: cusNavIconUrl,
-			editIndex: currentEditingNav
-		})).then(response => {
-			if (response.ok) {
-				return response.text();
-			}
-		}).then(getCusNav);
-	}
-	setTimeout(() => cusNavSubmitCount = 0, 2000);
-}
-window.onclick = () => {
-	if (menuUser.style.opacity === "1") {
-		hideMenu(menuUser);
-	}
-	if (menuSettings.style.opacity === "1") {
-		hideMenu(menuSettings);
-	}
-	if (menuCusNav.style.opacity === "1") {
-		hideMenu(menuCusNav);
-	}
-	if (menuSearch.style.opacity === "1") {
-		hideMenu(menuSearch);
-	}
-	if (tipBoxCopyPaste.style.opacity === "1") {
-		hideMenu(tipBoxCopyPaste);
-	}
-	if (tipBoxLogin.style.opacity === "1") {
-		hideMenu(tipBoxLogin);
-	}
-	if (tipBoxBrowser.style.opacity === "1") {
-		hideMenu(tipBoxBrowser);
-	}
-}
 btnWarn.onmouseenter = () => {
 	showMenu(tipBoxBrowser);
 }
@@ -883,65 +728,6 @@ function hideMenu(theMenu) {
 	theMenu.style.transform = "scale(0.5)";
 	theMenu.style.opacity = "0";
 	setTimeout(() => theMenu.style.display = "none", 250);
-}
-
-function getCusNav() {
-	fetch(backend + "cusNav?" + encodeData({
-		action: "getCusNav",
-		rthUsername: login.username
-	})).then(response => {
-		if (response.ok) {
-			return response.text();
-		}
-	}).then(data => {
-		if (data) {
-			navboxCustom.innerHTML = data;
-		}
-	});
-	inputCustomUrl.value = "";
-	inputCustomTitle.value = "";
-}
-
-function loadCusNavSlots() {
-	fetch(backend + "cusNav?" + encodeData({
-		action: "loadCusNavSlots"
-	})).then(response => {
-		if (response.ok) {
-			return response.text();
-		}
-	}).then(data => {
-		if (data) {
-			navboxCustom.innerHTML = data;
-		}
-	});
-}
-
-function showCusNavMenu(e, obj) {
-	if (frmSetCustomNav.style.opacity === "1") {
-		btnCloseFrmCusNav.onclick();
-	}
-	menuCusNav.style.left = e.clientX + 3 + "px";
-	menuCusNav.style.top = e.clientY + 3 + "px";
-	currentEditingNav = obj.id;
-	currentDeletingNav = obj.id;
-	showMenu(menuCusNav);
-}
-cusNavMenuDel.onclick = () => {
-	fetch(backend + "cusNav", getPostData({
-		action: "delCusNav",
-		rthUsername: login.username,
-		delIndex: currentDeletingNav
-	})).then(response => {
-		if (response.ok) {
-			getCusNav();
-		}
-	});
-}
-cusNavMenuEdit.onclick = () => {
-	cusNavEditingMode = true;
-	inputCustomUrl.value = "";
-	inputCustomTitle.value = document.getElementById(currentEditingNav).lastChild.innerText;
-	cusNavClick(event, this);
 }
 
 function editBtnClick(editItem) {
@@ -1257,11 +1043,6 @@ if (ypoctonod[0][atob(ypoctonod[1])].indexOf(atob("aW5kZXguaHRtbA==")) == -1) { 
 	ypoctonod[0][atob(ypoctonod[1])] = atob("aW5kZXguaHRtbA==");   //BASE64
 } else {
 	ypoctonod.length = 0;
-}
-loadCusNavSlots();
-if (isMobile) {
-	bgbox.style.backgroundSize = "auto 100%";
-	bgbox.style.backgroundPosition = "center";
 }
 if (isEdge) {
 	input0.style.transition = "none";
