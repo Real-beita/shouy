@@ -198,6 +198,12 @@ function search() {
 			case 'google':
 				url = "https://www.google.com/search?q=" + finalStr;
 				break;
+			case 'duckduckgo':
+				url = "https://duckduckgo.com/?q=" + finalStr;
+				break;
+			case 'duckduckgo':
+					url = "https://yandex.com/search/?text=" + finalStr;
+					break;
 		}
 	}
 	if (openInNew) {
@@ -232,6 +238,8 @@ function switchSearchEng(searchEng) {
 			searchOpt1.classList.add("selected");
 			searchOpt2.classList.remove("selected");
 			searchOpt3.classList.remove("selected");
+			searchOpt4.classList.remove("selected");
+			searchOpt5.classList.remove("selected");
 			navlinkTranslate.href = "https://fanyi.baidu.com/";
 			navlinkMap.href = "https://map.baidu.com/";
 			navlinkImage.href = "https://image.baidu.com/";
@@ -242,6 +250,8 @@ function switchSearchEng(searchEng) {
 			searchOpt2.classList.add("selected");
 			searchOpt1.classList.remove("selected");
 			searchOpt3.classList.remove("selected");
+			searchOpt4.classList.remove("selected");
+			searchOpt5.classList.remove("selected");
 			navlinkTranslate.href = "https://cn.bing.com/translator/";
 			navlinkMap.href = "https://cn.bing.com/maps/";
 			navlinkImage.href = "https://cn.bing.com/images/";
@@ -252,10 +262,36 @@ function switchSearchEng(searchEng) {
 			searchOpt3.classList.add("selected");
 			searchOpt1.classList.remove("selected");
 			searchOpt2.classList.remove("selected");
+			searchOpt4.classList.remove("selected");
+			searchOpt5.classList.remove("selected");
 			navlinkTranslate.href = "https://translate.google.cn/";
 			navlinkMap.href = "https://www.google.com/maps/";
 			navlinkImage.href = "https://www.google.com/imghp";
 			break;
+		case 'duckduckgo':
+				localStorage.setItem("searchEngPref", "duckduckgo");
+				currentSearchEngine = "duckduckgo";
+				searchOpt4.classList.add("selected");
+				searchOpt1.classList.remove("selected");
+				searchOpt2.classList.remove("selected");
+				searchOpt3.classList.remove("selected");
+				searchOpt5.classList.remove("selected");
+				navlinkTranslate.href = "https://translate.google.cn/";
+				navlinkMap.href = "https://www.google.com/maps/";
+				navlinkImage.href = "https://www.google.com/imghp";
+				break;
+		case 'yandex':
+					localStorage.setItem("searchEngPref", "yandex");
+					currentSearchEngine = "yandex";
+					searchOpt5.classList.add("selected");
+					searchOpt1.classList.remove("selected");
+					searchOpt2.classList.remove("selected");
+					searchOpt3.classList.remove("selected");
+					searchOpt4.classList.remove("selected");
+					navlinkTranslate.href = "https://translate.yandex.com/";
+					navlinkMap.href = "https://www.yandex.com/maps/";
+					navlinkImage.href = "https://yandex.com/images/";
+					break;
 	}
 	input0.focus();
 }

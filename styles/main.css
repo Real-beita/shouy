@@ -143,6 +143,16 @@ body {
 		url('https://at.alicdn.com/t/font_1010028_mwzje6j2bqf.svg#iconfont') format('svg');
 }
 
+@font-face {
+	font-family: 'iconfont';  /* project id 2156775 */
+	src: url('https://at.alicdn.com/t/font_2156775_ftpgoylmbiq.eot');
+	src: url('https://at.alicdn.com/t/font_2156775_ftpgoylmbiq.eot?#iefix') format('embedded-opentype'),
+	url('https://at.alicdn.com/t/font_2156775_ftpgoylmbiq.woff2') format('woff2'),
+	url('https://at.alicdn.com/t/font_2156775_ftpgoylmbiq.woff') format('woff'),
+	url('https://at.alicdn.com/t/font_2156775_ftpgoylmbiq.ttf') format('truetype'),
+	url('https://at.alicdn.com/t/font_2156775_ftpgoylmbiq.svg#iconfont') format('svg');
+  }
+
 .iconfont {
 	font-family: "iconfont" !important;
 	font-size: 22px;
@@ -313,7 +323,7 @@ h1::after {
 	top: 220px;
 	/*270px*/
 	left: 50%;
-	margin-left: -130px;
+	margin-left: -200px;
 	width: 260px;
 	text-align: center;
 	transition: all 0.25s;
@@ -345,6 +355,8 @@ h1::after {
 
 #iconBaidu,
 #iconBing,
+#iconDuckduckgo,
+#iconYandex,
 #iconGoogle {
 	color: rgba(255, 255, 255, 0.8);
 	font-size: 14px;
