@@ -195,7 +195,7 @@ function search() {
 			case 'duckduckgo':
 				url = "https://duckduckgo.com/?q=" + finalStr;
 				break;
-			case 'duckduckgo':
+			case 'yandex':
 					url = "https://yandex.com/search/?text=" + finalStr;
 					break;
 		}
