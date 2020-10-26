@@ -163,16 +163,6 @@
                     Chrome 浏览器 </a>或全新<a href="https://www.microsoft.com/zh-cn/edge/" target="_blank" class="links1">
                     Chromium 版 Microsoft Edge 浏览器 </a></div>
         </div>
-        <div id="tipBoxLogin">
-            <i class="iconfont" id="iconOffline">&#xe621;</i>
-            <div class="titleBold">您尚未登录</div>
-            <div class="pTip">登录后，即可云端同步便笺和自定义网站捷径</div>
-        </div>
-        <div id="menuUser">
-            <div class="userMenuItem" id="userMenuMyAccount" onclick="showPop(popAccount)"><span
-                    id="menuTextUsername">User</span>账号管理</div>
-            <div class="userMenuItem" id="userMenuLogout" onclick="logOut()">退出登录</div>
-        </div>
         <div id="menuSettings">
             <div class="userMenuItem" id="setMenuGeneral" onclick="showPop(popGeneralSettings)">常规设置</div>
             <div class="userMenuItem" id="setMenuBgPref" onclick="showPop(popBg)">背景图像偏好</div>
@@ -193,9 +183,6 @@
                     onclick="showAbout()">关于</a></span>
         </footer>
         <div class="cover1" id="cover1">
-            <div class="popUp" id="popLogin">
-                <span class="btnClose" onclick="closePop(popLogin)"><span class="btnCloseInner"></span></span>
-            </div>
             <div class="popUp" id="popCompleteReg">
                 <span class="btnClose" onclick="closePop(popCompleteReg)"><span class="btnCloseInner"></span></span>
                 <div class="pTitle centerAligned" id="pTitleCompleteReg">马上就好...</div>
@@ -309,17 +296,10 @@
                                 class="iconfont iconCheck shouldNotFade">&#xe622;</i></div>
                     </div>
                     <div class="pTitleS">必应</div>
-                    <div class="bgPreviewBox" id="bgPreBoxBing" onclick="changeWp(this)">
+                    <div class="bgPreviewBox" id="bgPreBoxBing" onclick="changeWp(this)"
+                        title="来自必应主页每日壁纸">
                         <div class="bgPreBoxInner" id="bgPreBoxInBing"><span class="bgPreBoxMask"></span><i
                                 class="iconfont iconCheck shouldNotFade">&#xe622;</i></div>
-                    </div>
-                    <div class="bgCusBoxR">
-                        <span class="titleBold">好康的壁纸，每日更新。</span>
-                        <div class="pTitleS" id="pWallpaperInfo"></div>
-                        <div class="pTitleS">图像来源：<a href="https://cn.bing.com/" class="links1"
-                                target="_blank">必应</a>&nbsp;&nbsp;<a
-                                href="https://johnsonran.cn/API/bing" class="links1"
-                                target="_blank">点此下载</a></div>
                     </div>
                     <div class="pTitleS" id="bgTitleDynamic">动态</div>
                     <div class="bgPreviewBox" id="bgPreBoxLive" onclick="changeWp(this)"

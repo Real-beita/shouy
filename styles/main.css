@@ -1576,19 +1576,23 @@ footer {
 }
 
 #bgPreBoxIn1 {
-	background-image: url("assets/images/BG_A_Default_1.jpg");
+	background-image: url("../assets/images/BG_A_Default_1.jpg");
 }
 
 #bgPreBoxIn2 {
-	background-image: url("assets/images/BG_A_Default_2.jpg");
+	background-image: url("../assets/images/BG_A_Default_2.jpg");
 }
 
 #bgPreBoxIn3 {
-	background-image: url("assets/images/BG_A_Default_3.jpg");
+	background-image: url("../assets/images/BG_A_Default_3.jpg");
+}
+
+#bgPreBoxInBing {
+	background-image: url("https://johnsonran.cn/API/bing");
 }
 
 #bgPreBoxInLive {
-	background-image: url("assets/images/BG_A_Live_1.jpg");
+	background-image: url("../assets/images/BG_A_Live_1.jpg");
 }
 
 .iconCheck,

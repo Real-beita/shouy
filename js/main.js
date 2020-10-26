@@ -734,7 +734,7 @@ function changeWp(obj) {
 		case 'bgPreBoxBing':
 			liveBgBox.style.display = "none";
 			liveBgBox.pause();
-			bgbox.src = bingWallpaper.url;
+			bgbox.src = "https://johnsonran.cn/API/bing";
 			bgbox.style.opacity = "1";
 			bgPreBoxInCus.classList.remove("selected");
 			bgPreBoxIn1.classList.remove("selected");
@@ -1640,6 +1640,7 @@ switch (bgPreference) {
 		bgPreBoxIn3.classList.add("selected");
 		break;
 	case 'Bing':
+		bgbox.src = "https://johnsonran.cn/API/bing";
 		bgPreBoxInBing.classList.add("selected");
 		break;
 	case 'Live':
@@ -1654,36 +1655,6 @@ bgbox.onload = () => {
 	setTimeout(() => bgbox.style.opacity = "1", 50);
 	setTimeout(() => cover.style.opacity = "1", 100);
 }
-fetch(backend + "code?action=bing").then(response => {
-	if (response.ok) {
-		return response.json();
-	}
-}).then(data => {
-	if (data) {
-		window.bingWallpaper = data.images[0];
-		bingWallpaper.url = "https://johnsonran.cn/API/bing" + bingWallpaper.url;
-		lastModified0 = Math.round(new Date(bingWallpaper.startdate.substring(0, 4) + "-" + bingWallpaper.startdate.substring(4, 6) + "-" + bingWallpaper.startdate.substring(6, 8)).getTime() / 1000);
-		//console.log("Background image last modified at " + lastModified0);
-		wallpaperInfo.innerText = "喜欢这张壁纸：" + bingWallpaper.copyright;
-		pWallpaperInfo.innerText = bingWallpaper.copyright;
-		bgPreBoxInBing.style.backgroundImage = "url(" + bingWallpaper.url + ")";
-		if (bgPreference == "Bing") {
-			bgbox.src = bingWallpaper.url;
-		}
-		fetch(backend + "like", getPostData({
-			action: "getLikedCount",
-			lastModified0: lastModified0
-		})).then(response => {
-			if (response.ok) {
-				return response.text();
-			}
-		}).then(data => {
-			if (data) {
-				numLiked.innerText = data;
-			}
-		});
-	}
-});
 fetch("https://v1.hitokoto.cn/?c=d&c=h&c=i&c=j&encode=json").then(response => response.json()).then(data => {
 	document.getElementsByClassName("quote-content")[0].innerText = "「 " + data["hitokoto"] + " 」";
 	document.getElementsByClassName("quote-author")[0].innerText = "——" + data["from"];
