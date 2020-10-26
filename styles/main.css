@@ -1163,7 +1163,6 @@ footer {
 }
 
 #btnSettings,
-#btnUser,
 #btnWarn {
 	animation: fadeIn 0.25s linear;
 	display: none;
@@ -1180,10 +1179,6 @@ footer {
 	right: 50px;
 }
 
-#btnUser {
-	right: 90px;
-}
-
 #btnWarn {
 	right: 132px;
 }
@@ -1197,13 +1192,11 @@ footer {
 	transform: rotate(60deg);
 }
 
-#btnUser:hover,
 #btnWarn:hover {
 	color: rgba(255, 255, 255, 0.65);
 }
 
 #btnSettings:active,
-#btnUser:active,
 #btnWarn:active {
 	color: rgba(255, 255, 255, 0.8);
 }
@@ -2288,11 +2281,6 @@ input[type=file] {
 
 	.customNav {
 		width: 20%;
-	}
-
-	#btnUser {
-		right: 60px;
-		top: 10px;
 	}
 
 	#btnSettings {
