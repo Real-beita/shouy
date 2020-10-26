@@ -1301,11 +1301,11 @@ switch (bgPreference) {
 		break;
 	case 'Default5':
 		bgbox.src = "assets/images/BG_A_Default_5.jpg";
-		bgPreBoxIn4.classList.add("selected");
+		bgPreBoxIn5.classList.add("selected");
 		break;
 	case 'Default6':
 		bgbox.src = "assets/images/BG_A_Default_6.jpg";
-		bgPreBoxIn4.classList.add("selected");
+		bgPreBoxIn6.classList.add("selected");
 		break;
 	case 'Bing':
 		bgbox.src = "https://johnsonran.cn/API/bing";
