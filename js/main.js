@@ -505,6 +505,9 @@ function changeWp(obj) {
 				bgPreBoxIn1.classList.remove("selected");
 				bgPreBoxIn2.classList.remove("selected");
 				bgPreBoxIn3.classList.remove("selected");
+				bgPreBoxIn4.classList.remove("selected");
+				bgPreBoxIn5.classList.remove("selected");
+				bgPreBoxIn6.classList.remove("selected");
 				bgPreBoxInBing.classList.remove("selected");
 				bgPreBoxInLive.classList.remove("selected");
 				localStorage.setItem("bgPreference", "Custom");
@@ -521,6 +524,9 @@ function changeWp(obj) {
 			bgPreBoxIn1.classList.add("selected");
 			bgPreBoxIn2.classList.remove("selected");
 			bgPreBoxIn3.classList.remove("selected");
+			bgPreBoxIn4.classList.remove("selected");
+			bgPreBoxIn5.classList.remove("selected");
+			bgPreBoxIn6.classList.remove("selected");
 			bgPreBoxInBing.classList.remove("selected");
 			bgPreBoxInLive.classList.remove("selected");
 			localStorage.setItem("bgPreference", "Default");
@@ -535,6 +541,9 @@ function changeWp(obj) {
 			bgPreBoxIn2.classList.add("selected");
 			bgPreBoxIn1.classList.remove("selected");
 			bgPreBoxIn3.classList.remove("selected");
+			bgPreBoxIn4.classList.remove("selected");
+			bgPreBoxIn5.classList.remove("selected");
+			bgPreBoxIn6.classList.remove("selected");
 			bgPreBoxInBing.classList.remove("selected");
 			bgPreBoxInLive.classList.remove("selected");
 			localStorage.setItem("bgPreference", "Default2");
@@ -549,10 +558,64 @@ function changeWp(obj) {
 			bgPreBoxIn3.classList.add("selected");
 			bgPreBoxIn1.classList.remove("selected");
 			bgPreBoxIn2.classList.remove("selected");
+			bgPreBoxIn4.classList.remove("selected");
+			bgPreBoxIn5.classList.remove("selected");
+			bgPreBoxIn6.classList.remove("selected");
 			bgPreBoxInBing.classList.remove("selected");
 			bgPreBoxInLive.classList.remove("selected");
 			localStorage.setItem("bgPreference", "Default3");
 			bgPreference = "Default3";
+			break;
+		case 'bgPreBoxD4':
+			liveBgBox.style.display = "none";
+			liveBgBox.pause();
+			bgbox.src = "assets/images/BG_A_Default_4.jpg";
+			bgbox.style.opacity = "1";
+			bgPreBoxInCus.classList.remove("selected");
+			bgPreBoxIn4.classList.add("selected");
+			bgPreBoxIn1.classList.remove("selected");
+			bgPreBoxIn2.classList.remove("selected");
+			bgPreBoxIn3.classList.remove("selected");
+			bgPreBoxIn5.classList.remove("selected");
+			bgPreBoxIn6.classList.remove("selected");
+			bgPreBoxInBing.classList.remove("selected");
+			bgPreBoxInLive.classList.remove("selected");
+			localStorage.setItem("bgPreference", "Default4");
+			bgPreference = "Default4";
+			break;
+		case 'bgPreBoxD5':
+			liveBgBox.style.display = "none";
+			liveBgBox.pause();
+			bgbox.src = "assets/images/BG_A_Default_5.jpg";
+			bgbox.style.opacity = "1";
+			bgPreBoxInCus.classList.remove("selected");
+			bgPreBoxIn5.classList.add("selected");
+			bgPreBoxIn1.classList.remove("selected");
+			bgPreBoxIn2.classList.remove("selected");
+			bgPreBoxIn3.classList.remove("selected");
+			bgPreBoxIn4.classList.remove("selected");
+			bgPreBoxIn6.classList.remove("selected");
+			bgPreBoxInBing.classList.remove("selected");
+			bgPreBoxInLive.classList.remove("selected");
+			localStorage.setItem("bgPreference", "Default5");
+			bgPreference = "Default5";
+			break;
+		case 'bgPreBoxD6':
+			liveBgBox.style.display = "none";
+			liveBgBox.pause();
+			bgbox.src = "assets/images/BG_A_Default_6.jpg";
+			bgbox.style.opacity = "1";
+			bgPreBoxInCus.classList.remove("selected");
+			bgPreBoxIn6.classList.add("selected");
+			bgPreBoxIn1.classList.remove("selected");
+			bgPreBoxIn2.classList.remove("selected");
+			bgPreBoxIn3.classList.remove("selected");
+			bgPreBoxIn4.classList.remove("selected");
+			bgPreBoxIn5.classList.remove("selected");
+			bgPreBoxInBing.classList.remove("selected");
+			bgPreBoxInLive.classList.remove("selected");
+			localStorage.setItem("bgPreference", "Default6");
+			bgPreference = "Default6";
 			break;
 		case 'bgPreBoxBing':
 			liveBgBox.style.display = "none";
@@ -563,6 +626,9 @@ function changeWp(obj) {
 			bgPreBoxIn1.classList.remove("selected");
 			bgPreBoxIn2.classList.remove("selected");
 			bgPreBoxIn3.classList.remove("selected");
+			bgPreBoxIn4.classList.remove("selected");
+			bgPreBoxIn5.classList.remove("selected");
+			bgPreBoxIn6.classList.remove("selected");
 			bgPreBoxInBing.classList.add("selected");
 			bgPreBoxInLive.classList.remove("selected");
 			localStorage.setItem("bgPreference", "Bing");
@@ -578,6 +644,7 @@ function changeWp(obj) {
 			bgPreBoxIn1.classList.remove("selected");
 			bgPreBoxIn2.classList.remove("selected");
 			bgPreBoxIn3.classList.remove("selected");
+			bgPreBoxIn4.classList.remove("selected");
 			bgPreBoxInBing.classList.remove("selected");
 			bgPreBoxInLive.classList.add("selected");
 			localStorage.setItem("bgPreference", "Live");
@@ -1227,6 +1294,18 @@ switch (bgPreference) {
 	case 'Default3':
 		bgbox.src = "assets/images/BG_A_Default_3.jpg";
 		bgPreBoxIn3.classList.add("selected");
+		break;
+	case 'Default4':
+		bgbox.src = "assets/images/BG_A_Default_4.jpg";
+		bgPreBoxIn4.classList.add("selected");
+		break;
+	case 'Default5':
+		bgbox.src = "assets/images/BG_A_Default_5.jpg";
+		bgPreBoxIn4.classList.add("selected");
+		break;
+	case 'Default6':
+		bgbox.src = "assets/images/BG_A_Default_6.jpg";
+		bgPreBoxIn4.classList.add("selected");
 		break;
 	case 'Bing':
 		bgbox.src = "https://johnsonran.cn/API/bing";

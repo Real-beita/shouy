@@ -1352,6 +1352,18 @@ footer {
 	background-image: url("../assets/images/BG_A_Default_3.jpg");
 }
 
+#bgPreBoxIn4 {
+	background-image: url("../assets/images/BG_A_Default_4.jpg");
+}
+
+#bgPreBoxIn5 {
+	background-image: url("../assets/images/BG_A_Default_5.jpg");
+}
+
+#bgPreBoxIn6 {
+	background-image: url("../assets/images/BG_A_Default_6.jpg");
+}
+
 #bgPreBoxInBing {
 	background-image: url("https://johnsonran.cn/API/bing");
 }
