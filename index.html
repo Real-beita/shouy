@@ -183,16 +183,6 @@
                     onclick="showAbout()">关于</a></span>
         </footer>
         <div class="cover1" id="cover1">
-            <div class="popUp" id="popCompleteReg">
-                <span class="btnClose" onclick="closePop(popCompleteReg)"><span class="btnCloseInner"></span></span>
-                <div class="pTitle centerAligned" id="pTitleCompleteReg">马上就好...</div>
-                <div id="loginTip">完成最后一步设置，您即可开始网上冲浪</div>
-                <div class="loginTip3" id="loginTipUsername" style="margin-top: 20px">为自己起一个好听的用户名</div>
-                <input type="text" name="username" class="inputLogin" id="inputUsername" onkeyup="checkUsername()">
-                <div class="loginTip3" style="margin-top: 60px">你的生日</div>
-                <input type="date" name="password" class="inputLogin" id="inputBirthday">
-                <button class="btnLogin" id="btnCompleteReg">完成</button>
-            </div>
             <div class="popUp" id="popGeneralSettings">
                 <span class="btnClose" onclick="closePop(popGeneralSettings)"><span class="btnCloseInner"></span></span>
                 <div class="pTitle">常规设置</div>
@@ -323,42 +313,6 @@
                 </div>
             </div>
 
-            <div class="popUp" id="popAccount">
-                <span class="btnClose" onclick="closePop(popAccount)"><span class="btnCloseInner"></span></span>
-                <div class="pTitle" id="titlePopAccount">欢迎你</div>
-                <div class="pContent" id="contentAccount">
-                    <div class="contentBlock" id="cBlockAccInfo">
-                        <div class="pTitleS">邮箱&emsp;&emsp;<span id="accInfoTextEmail">Email</span></div>
-                        <div class="pTitleS">UID&nbsp;&emsp;&emsp;<span id="accInfoTextUid">UID</span></div>
-                        <div class="pTitleS">用户名&emsp;<span id="accInfoTextUsername">Username</span><input type="text"
-                                name="username" class="inputEditUserInfo" id="inputEditUsername"
-                                onkeyup="checkUsername()"><i class="iconfont iconEdit" id="btnEditUsername" title="修改"
-                                onclick="editBtnClick('username')">&#xe60c;</i><span class="links1 btnUpdateUserInfo"
-                                id="btnUpdateUsername" onclick="updateUserInfo('username')">保存</span></div>
-                        <div class="pTitleS">生日&emsp;&emsp;<span id="accInfoTextBirthday">Birthday</span><input
-                                type="date" name="password" class="inputEditUserInfo" id="inputEditBirthday"><i
-                                class="iconfont iconEdit" id="btnEditBirthday" title="修改"
-                                onclick="editBtnClick('birthday')">&#xe60c;</i><span class="links1 btnUpdateUserInfo"
-                                id="btnUpdateBirthday" onclick="updateUserInfo('birthday')">保存</span></div>
-                    </div>
-                    <div class="contentBlock" id="cBlockAdvAcc">
-                        <span class="titleBold">进阶账号管理</span>
-                        <div class="pTitleS">修改登录邮箱及密码、管理您的已登录设备</div><br>
-                        <a href="" class="links1" title="进阶账号管理" target="_blank">点击前往</a>
-                    </div>
-                </div>
-                <div class="waveWrapper waveAnimation">
-                    <div class="waveWrapperInner bgTop">
-                        <div class="wave waveTop"></div>
-                    </div>
-                    <div class="waveWrapperInner bgMiddle">
-                        <div class="wave waveMiddle"></div>
-                    </div>
-                    <div class="waveWrapperInner bgBottom">
-                        <div class="wave waveBottom"></div>
-                    </div>
-                </div>
-            </div>
             <div class="popUp" id="popFeedback">
                 <span class="btnClose" onclick="closePop(popFeedback)"><span class="btnCloseInner"></span></span>
                 <div class="pTitle">反馈</div>

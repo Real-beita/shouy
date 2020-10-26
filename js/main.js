@@ -1057,75 +1057,6 @@ function hideMenu(theMenu) {
 	setTimeout(() => theMenu.style.display = "none", 250);
 }
 
-function isLoggedIn() {
-	if (login.username) {
-		return true;
-	} else {
-		if (!window.frmLogin) {
-			window.frmLogin = document.createElement("iframe");
-			frmLogin.id = "frmLogin";
-			frmLogin.title = "登录";
-			frmLogin.src = "https://account.rthsoftware.cn/login-mobius-start.html";
-			popLogin.appendChild(frmLogin);
-		}
-		showPop(popLogin);
-		return false;
-	}
-}
-
-function loggedIn(newLogin) {
-	if (newLogin) {
-		closePop(popLogin);
-	}
-	accInfoTextEmail.innerText = login.email;
-	accInfoTextUid.innerText = login.username;
-	fetch(backend + "account?" + encodeData({
-		action: "verifyUsername",
-		rthUsername: login.username,
-		email: login.email
-	})).then(response => {
-		if (response.ok) {
-			return response.text();
-		}
-	}).then(data => {
-		if (data) {
-			if (data === "0") {
-				showPop(popCompleteReg);
-			} else {
-				const userInfo = JSON.parse(data);
-				let birthdayDate, currentDate;
-				username = userInfo[0].username;
-				birthday = userInfo[0].birthday;
-				if (birthday) {
-					let currentMonth = new Date().getMonth() + 1;
-					const currentDay = new Date().getDate();
-					if (currentMonth < 10) {
-						currentMonth = "0" + currentMonth;
-					}
-					currentDate = currentMonth + "-" + currentDay;
-					birthdayDate = birthday.substring(5);
-				}
-				if (birthdayDate && birthdayDate == currentDate) {
-					showGreeting("", "生日快乐，" + username);
-				} else {
-					showGreeting(username, "");
-				}
-				menuTextUsername.innerText = username;
-				titlePopAccount.innerText = "欢迎你，" + username;
-				accInfoTextUid.innerText = userInfo[0].uid;
-				accInfoTextUsername.innerText = username;
-				accInfoTextBirthday.innerText = birthday;
-				inputEditUsername.value = username;
-				inputEditBirthday.value = birthday;
-			}
-		}
-	});
-	getCusNav();
-	noteList.load();
-	textNote.value = "";
-	offlineMark.style.opacity = 0;
-}
-
 function getCusNav() {
 	fetch(backend + "cusNav?" + encodeData({
 		action: "getCusNav",
@@ -1185,48 +1116,6 @@ cusNavMenuEdit.onclick = () => {
 	cusNavClick(event, this);
 }
 
-function checkUsername() {
-	const IllegalString = "[`~!#$^&*()=|{}':;',\\[\\].<>/?~！#￥……&*（）——|{}【】‘；：”“'。，、？]‘'";
-	const index = inputUsername.value.length - 1;
-	let s = inputUsername.value.charAt(index);
-	if (IllegalString.indexOf(s) >= 0) {
-		s = inputUsername.value.substring(0, index);
-		inputUsername.value = s;
-	}
-	if (inputUsername.value.length > 20) {
-		loginTipUsername.innerText = "用户名长度不符合限制";
-		if (matchMedia("(prefers-color-scheme:dark)").matches && autoDarkMode === true) {
-			loginTipUsername.style.color = "#FF565F";
-		} else {
-			loginTipUsername.style.color = "#FF2F3C";
-		}
-	} else {
-		loginTipUsername.innerText = "为自己起一个好听的用户名";
-		if (matchMedia("(prefers-color-scheme:dark)").matches && autoDarkMode === true) {
-			loginTipUsername.style.color = "rgba(255,255,255,0.5)";
-		} else {
-			loginTipUsername.style.color = "rgba(0,0,0,0.5)";
-		}
-	}
-}
-btnCompleteReg.onclick = () => {
-	btnCompleteReg.style.pointerEvents = "none";
-	if (inputUsername.value.length > 0 && inputUsername.value.length < 21) {
-		username = inputUsername.value;
-		fetch(backend + "account", getPostData({
-			action: "completeReg",
-			rthUsername: login.username,
-			username: username,
-			birthday: inputBirthday.value
-		})).then(response => {
-			if (response.ok) {
-				closePop(popCompleteReg);
-				showGreeting(username, "");
-			}
-		});
-	}
-}
-
 function editBtnClick(editItem) {
 	switch (editItem) {
 		case 'username':
@@ -1239,36 +1128,6 @@ function editBtnClick(editItem) {
 			inputEditBirthday.style.display = "inline-block";
 			btnUpdateBirthday.style.display = "inline-block";
 			break;
-	}
-}
-
-function updateUserInfo(editItem) {
-	if (inputEditUsername.value.length > 0 && inputEditUsername.value.length < 21) {
-		const newUsername = inputEditUsername.value;
-		const newBirthday = inputEditBirthday.value;
-		if (newUsername != username || newBirthday != birthday) {
-			fetch(backend + "account", getPostData({
-				action: "completeReg",
-				rthUsername: login.username,
-				username: newUsername,
-				birthday: newBirthday
-			})).then(response => {
-				if (response.ok) {
-					menuTextUsername.innerText = newUsername;
-					titlePopAccount.innerText = "欢迎你，" + newUsername;
-					accInfoTextUsername.innerText = newUsername;
-					accInfoTextBirthday.innerText = newBirthday;
-					username = newUsername;
-					birthday = newBirthday;
-				}
-			});
-		}
-		btnEditUsername.style.display = "inline-block";
-		inputEditUsername.style.display = "none";
-		btnUpdateUsername.style.display = "none";
-		btnEditBirthday.style.display = "inline-block";
-		inputEditBirthday.style.display = "none";
-		btnUpdateBirthday.style.display = "none";
 	}
 }
 
