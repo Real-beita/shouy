@@ -56,6 +56,10 @@ window.onkeydown = event => {
 		input0.focus();
 	}
 };
+
+input0.oncontextmenu = event => {
+		showSearchMenu(event);
+}
 input0.onkeydown = event => {
 	switch (event.keyCode) {
 		case 13:

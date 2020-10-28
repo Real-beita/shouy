@@ -740,7 +740,7 @@ textarea:hover::-ms-input-placeholder {
 	display: inline-block;
 	width: 100%;
 	height: 100%;
-	padding: 12px 0px;
+	padding: 12px;
 	background-color: transparent;
 	color: white;
 	font-size: small;
@@ -1550,6 +1550,8 @@ footer {
 }
 
 #iconCut,
+#iconCut1,
+#iconCut2,
 #iconCopy,
 #iconPaste,
 #iconDel,
@@ -2143,31 +2145,13 @@ input:checked+.slider:before {
 	transform-origin: center bottom;
 }
 
-.waveTop {
-	opacity: .2;
-	background-size: 50% 100px;
-	background-image: url('assets/images/Wave_Top.png');
-}
-
 .waveAnimation .waveTop {
 	animation: move-wave 3s;
 	animation-delay: 1s;
 }
 
-.waveMiddle {
-	opacity: .4;
-	background-size: 50% 120px;
-	background-image: url('assets/images/Wave_Middle.png');
-}
-
 .waveAnimation .waveMiddle {
 	animation: move_wave 10s linear infinite;
-}
-
-.waveBottom {
-	opacity: .6;
-	background-size: 50% 100px;
-	background-image: url('assets/images/Wave_Bottom.png');
 }
 
 .waveAnimation .waveBottom {
