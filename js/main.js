@@ -1000,25 +1000,6 @@ function showSearchMenu(event) {
 	}
 	showMenu(menuSearch);
 }
-searchMenuCut.onclick = event => {
-	window.getSelection().toString();
-	document.execCommand("cut");
-	theTextArea.focus();
-}
-searchMenuCopy.onclick = event => {
-	navigator.clipboard.writeText(window.getSelection().toString());
-	theTextArea.focus();
-}
-searchMenuPaste.onclick = event => {
-	try {
-		navigator.clipboard.readText().then(clipText => theTextArea.value = theTextArea.value + clipText);
-	} catch (err) {
-		tipBoxCopyPaste.style.left = event.clientX + 3 + "px";
-		tipBoxCopyPaste.style.top = event.clientY + 3 + "px";
-		showMenu(tipBoxCopyPaste);
-	}
-	theTextArea.focus();
-}
 
 function loadJs(src, load, error) {
 	const newScript = document.createElement("script");

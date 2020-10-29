@@ -358,7 +358,7 @@ h1::after {
 	font-size: 11px;
 }
 
-.serachEngList {
+.searchEngList {
 	margin-top: 10px;
 	margin-bottom: 20px;
 }
@@ -467,55 +467,6 @@ input[type="radio"]:checked + div:after {
 
 #iconBing {
 	font-size: 15px;
-}
-
-.keyword {
-	/*width: 480px;*/
-	width: 530px;
-	height: auto;
-	padding-bottom: -3px;
-	/*border:solid 1px rgba(255,255,255,0.3);*/
-	border-top: none;
-	position: absolute;
-	top: 310px;
-	/*245px;*/
-	left: 50%;
-	/*margin-left:-240px;*/
-	margin-left: -265px;
-	z-index: 40;
-	font-size: small;
-	/*box-shadow: rgba(0,0,0,0.15) 0px 0px 10px;*/
-	display: none;
-	overflow-y: hidden;
-	border-radius: 15px;
-	transition: all 0.25s;
-	-webkit-backdrop-filter: blur(30px);
-	backdrop-filter: blur(30px);
-}
-
-.keyword div {
-	clear: both;
-	/*width: 480px;*/
-	width: 530px;
-	height: 30px;
-	text-indent: 20px;
-	line-height: 30px;
-	cursor: pointer;
-	background: var(--w-alpha-10);
-	color: rgba(255, 255, 255, 0.8);
-	border-bottom: solid 1px rgba(0, 0, 0, 0);
-	transition: all 0.25s;
-}
-
-.keyword div:hover,
-.keyword div.focus {
-	/*background: rgba(169,217,102,1);*/
-	background: var(--w-alpha-20);
-}
-
-.keyword div:active {
-	background-color: var(--theme-color);
-	color: rgba(255, 255, 255, 0.8);
 }
 
 .navbox {
@@ -756,8 +707,8 @@ textarea:hover::-ms-input-placeholder {
 	opacity: 1;
 }
 
-a.nav_links:link,
-a.nav_links:visted {
+
+a.nav_links:link {
 	color: rgba(255, 255, 255, 1);
 	background-color: transparent;
 }
@@ -865,8 +816,8 @@ a.nav_links:hover>.iconfont.iconNavLinks {
 	transition: all 0.25s;
 }
 
-a.links:link,
-a.links:visted {
+
+a.links:link {
 	color: rgba(255, 255, 255, 0.6);
 }
 
@@ -1128,8 +1079,8 @@ footer {
 	transition: all 0.25s;
 }
 
-.links1:link,
-.links1:visted {
+
+.links1:link {
 	color: var(--theme-color) !important;
 }
 
@@ -1401,7 +1352,6 @@ footer {
 #menuUser,
 #menuSettings,
 #menuSearch,
-#tipBoxCopyPaste,
 #tipBoxLogin,
 #tipBoxBrowser {
 	display: none;
@@ -1447,43 +1397,6 @@ footer {
 #menuSearch {
 	z-index: 99;
 	background-color: var(--bg-w-pure);
-}
-
-#tipBoxCopyPaste {
-	z-index: 51;
-	width: 380px;
-	height: 180px;
-	font-size: 12px;
-}
-
-#tipBoxCopyPaste .pTitle {
-	top: 20px;
-	left: 30px;
-}
-
-#tipBoxCopyPaste .pTitleS {
-	margin-top: 30px;
-	margin-left: 30px;
-}
-
-.shortcutBox {
-	display: inline-block;
-	position: relative;
-	margin-left: 30px;
-	color: var(--b-alpha-70);
-}
-
-.shortcutBox p {
-	line-height: 0;
-	font-size: 25px;
-	font-family: "Microsoft Yahei", sans-serif;
-	font-weight: bold;
-	color: var(--b-alpha-50);
-}
-
-.shortcutBox span {
-	position: absolute;
-	margin-top: -7px;
 }
 
 #offlineMark {
@@ -1549,9 +1462,6 @@ footer {
 	pointer-events: none;
 }
 
-#iconCut,
-#iconCut1,
-#iconCut2,
 #iconCopy,
 #iconPaste,
 #iconDel,
@@ -2039,19 +1949,6 @@ input:checked+.slider:before {
 	backdrop-filter: blur(30px);
 }
 
-#marqueeBar {
-	position: absolute;
-	top: calc(50% - 10px);
-	left: 0;
-	width: calc(100% - 50px);
-	font-size: 14px;
-}
-
-#marqueeTitle {
-	font-family: "Microsoft Yahei", sans-serif;
-	font-weight: bold;
-}
-
 #btnClosetopNBar {
 	opacity: 1;
 	top: calc(50% - 5px);
@@ -2198,18 +2095,6 @@ input[type=file] {
 		top: 110px;
 	}
 
-	.keyword {
-		top: 200px;
-		/*top: 136px;*/
-		margin-left: -43.3%;
-		width: 86%;
-	}
-
-	.keyword div {
-		font-size: small;
-		width: 100%;
-	}
-
 	.navbox0 {
 		width: 100%;
 		left: 0;
@@ -2327,11 +2212,6 @@ input[type=file] {
 
 	.contentBlock {
 		width: 100% !important;
-	}
-
-	#marqueeBar {
-		top: calc(50% - 7.6px);
-		font-size: 11px;
 	}
 
 	#tp-weather-widget {

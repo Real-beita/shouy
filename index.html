@@ -35,26 +35,6 @@
                 onclick="switchSearchEng('yandex')"><i class="iconfont" id="iconYandex">&#xe603;</i></span>
         </div>
         <div class="keyword" id="keyword"></div>
-        <div id="menuSearch">
-            <div class="searchMenuItem disabled" id="searchMenuCut"><i class="iconfont" id="iconCut">&#xe74b;</i>剪切
-            </div>
-            <div class="searchMenuItem disabled" id="searchMenuCopy"><i class="iconfont" id="iconCut1">&#xe7e4;</i>复制
-            </div>
-            <div class="searchMenuItem" id="searchMenuPaste"><i class="iconfont" id="iconCut2">&#xe753;</i>粘贴</div>
-        </div>
-        <div id="tipBoxCopyPaste">
-            <div class="pTitle">如何复制粘贴文本？</div>
-            <div class="pTitleS">您所使用的浏览器不支持我们的右键菜单访问剪贴板。<br>但您仍可通过以下快捷键进行剪切、复制和粘贴。</div>
-            <div class="shortcutBox">
-                <p>Ctrl+X</p><span>剪切</span>
-            </div>
-            <div class="shortcutBox">
-                <p>Ctrl+C</p><span>复制</span>
-            </div>
-            <div class="shortcutBox">
-                <p>Ctrl+V</p><span>粘贴</span>
-            </div>
-        </div>
         <div class="quotebox waves-effect waves-light" id="quotebox">
             <span class="quote-bg"></span>
             <p class="quote-content"></p>
@@ -209,7 +189,7 @@
 				<div class="pTitle">搜索引擎偏好</div>
 				<div class="pContent" id="contentSearchEng">
 					<div class="titleBold">主搜索引擎</div>
-					<div class="serachEngList">
+					<div class="searchEngList">
 						<div class="searchEngListItem">
 							<input type="radio" name="radioSearchEng" id="baiduRadioSearchEng">
 							<div class="searchEngName">百度<span class="searchEngUrl" id="baiduSearchEngUrl">https://www.baidu.com/s?ie=utf-8&amp;word=</span></div>
@@ -228,7 +208,7 @@
 						</div>
 					</div>
 					<div class="titleBold">次搜索引擎</div>
-					<div class="serachEngList">
+					<div class="searchEngList">
 						<div class="searchEngListItem">
 							<input type="radio" name="radioSearchEng" id="magiRadioSearchEng">
 							<div class="searchEngName">Magi<span class="searchEngUrl" id="magiSearchEngUrl">https://magi.com/search?q=</span></div>
@@ -248,7 +228,7 @@
 					</div>
 					<div class="titleBold">自定搜索引擎</div>
 					<div class="pTitleS">在下方键入您自定义搜索引擎的URL。以 https:// 开头，关键词参数名及其连接符结尾。</div>
-					<div class="serachEngList">
+					<div class="searchEngList">
 						<div class="searchEngListItem">
 							<input type="radio" name="radioSearchEng" id="customRadioSearchEng">
 							<div class="searchEngName">自定义<input type="text" id="inputCusSearchEngUrl" placeholder="在此键入搜索引擎URL"></div>
@@ -395,7 +375,6 @@
         <div id="tp-weather-widget"></div>
     </div>
     <div class="topNotificationBar" id="topNotificationBar">
-        <marquee id="marqueeBar"><span id="marqueeTitle"></span>&emsp;<span id="marqueeText"></span></marquee>
         <span class="btnCloseS" id="btnClosetopNBar"></span>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
